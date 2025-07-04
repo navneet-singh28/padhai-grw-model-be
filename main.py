@@ -6,15 +6,18 @@ from pydantic import BaseModel
 from pathlib import Path
 import sys
 import uvicorn
+from dotenv import load_dotenv
 
 # make sure we can import compute_metrics.py
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[0]
 sys.path.append(str(ROOT))
 from compute_metrics import (
     compute_metrics,
     _fetch_mixpanel_events,
     _load_local_events
 )
+
+load_dotenv(dotenv_path=Path(__file__).resolve().parents[0] / ".env")
 
 class MetricsRequest(BaseModel):
     start: str  # YYYY-MM-DD
